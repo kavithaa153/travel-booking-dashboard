@@ -456,3 +456,113 @@
     padding: 14px 16px;
   }
 }
+.bookings-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.booking-stat-card {
+  min-height: 118px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 22px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-normal);
+}
+
+.booking-stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.booking-stat-icon {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 14px;
+  background: var(--primary-light);
+  color: var(--primary-dark);
+}
+
+.booking-stat-icon.confirmed {
+  background: var(--success-light);
+  color: var(--success);
+}
+
+.booking-stat-icon.pending {
+  background: var(--warning-light);
+  color: var(--primary-dark);
+}
+
+.booking-stat-icon.revenue {
+  background: var(--primary-light);
+  color: var(--primary-dark);
+}
+
+.booking-stat-card > div:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.booking-stat-card span {
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.booking-stat-card strong {
+  color: var(--text-primary);
+  font-size: 25px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.create-booking-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 0 20px;
+  border: 1px solid var(--primary);
+  border-radius: 11px;
+  background: var(--primary);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 8px 20px rgba(201, 151, 43, 0.22);
+  transition: var(--transition-fast);
+}
+
+.create-booking-btn:hover {
+  background: var(--primary-dark);
+  border-color: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 1100px) {
+  .bookings-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .bookings-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-stat-card {
+    min-height: 100px;
+  }
+}
