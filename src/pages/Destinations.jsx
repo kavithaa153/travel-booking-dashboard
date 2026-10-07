@@ -12,6 +12,7 @@ import {
   XCircle
 } from 'lucide-react'
 import Modal from '../components/common/Modal'
+import defaultDestinations from '../data/destinations'
 import './Destinations.css'
 
 function Destinations () {
@@ -19,15 +20,33 @@ function Destinations () {
   const [searchTerm, setSearchTerm] = useState('')
   const [statusFilter, setStatusFilter] = useState('All')
   const [sortOrder, setSortOrder] = useState('newest')
-
   const [deleteDestinationId, setDeleteDestinationId] = useState(null)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
 
   useEffect(() => {
-    const savedDestinations =
-      JSON.parse(localStorage.getItem('travelgo_destinations')) || []
+    try {
+      const savedDestinations = JSON.parse(
+        localStorage.getItem('travelgo_destinations')
+      )
 
-    setDestinations(savedDestinations)
+      if (Array.isArray(savedDestinations) && savedDestinations.length > 0) {
+        setDestinations(savedDestinations)
+      } else {
+        localStorage.setItem(
+          'travelgo_destinations',
+          JSON.stringify(defaultDestinations)
+        )
+
+        setDestinations(defaultDestinations)
+      }
+    } catch {
+      localStorage.setItem(
+        'travelgo_destinations',
+        JSON.stringify(defaultDestinations)
+      )
+
+      setDestinations(defaultDestinations)
+    }
   }, [])
 
   const openDeleteModal = id => {
@@ -103,7 +122,6 @@ function Destinations () {
 
   return (
     <div className='destinations-page'>
-
       <div className='destinations-topbar'>
         <div>
           <span className='destinations-eyebrow'>
@@ -127,7 +145,6 @@ function Destinations () {
       </div>
 
       <div className='destination-stats'>
-
         <div className='destination-stat'>
           <div className='destination-stat-icon blue'>
             <Globe2 size={20} />
@@ -160,11 +177,9 @@ function Destinations () {
             <strong>{inactiveCount}</strong>
           </div>
         </div>
-
       </div>
 
       <div className='destinations-toolbar'>
-
         <div className='destination-search'>
           <Search size={18} />
 
@@ -198,11 +213,9 @@ function Destinations () {
             <option value='nameZA'>Name: Z to A</option>
           </select>
         </div>
-
       </div>
 
       <div className='destinations-section'>
-
         <div className='destinations-section-header'>
           <div>
             <h2>Explore Destinations</h2>
@@ -215,9 +228,7 @@ function Destinations () {
         </div>
 
         {filteredDestinations.length === 0 ? (
-
           <div className='destinations-empty'>
-
             <div className='destination-empty-visual'>
               <div className='empty-globe'>
                 <Globe2 size={38} />
@@ -245,32 +256,39 @@ function Destinations () {
                 Add First Destination
               </Link>
             )}
-
           </div>
-
         ) : (
-
           <div className='destination-grid'>
-
             {filteredDestinations.map(destination => (
-
               <div
                 className='destination-card'
                 key={destination.id}
               >
-
                 <div className='destination-image'>
-
                   {destination.image ? (
                     <img
                       src={destination.image}
                       alt={destination.name}
+                      onError={event => {
+                        event.currentTarget.style.display = 'none'
+                        const placeholder =
+                          event.currentTarget.nextElementSibling
+
+                        if (placeholder) {
+                          placeholder.style.display = 'flex'
+                        }
+                      }}
                     />
-                  ) : (
-                    <div className='destination-image-placeholder'>
-                      <MapPin size={32} />
-                    </div>
-                  )}
+                  ) : null}
+
+                  <div
+                    className='destination-image-placeholder'
+                    style={{
+                      display: destination.image ? 'none' : 'flex'
+                    }}
+                  >
+                    <MapPin size={32} />
+                  </div>
 
                   <div className='destination-image-overlay' />
 
@@ -286,11 +304,9 @@ function Destinations () {
                     <MapPin size={14} />
                     {destination.country}
                   </div>
-
                 </div>
 
                 <div className='destination-content'>
-
                   <h3>{destination.name}</h3>
 
                   <p>
@@ -299,14 +315,12 @@ function Destinations () {
                   </p>
 
                   <div className='destination-card-footer'>
-
                     <span className='destination-country'>
                       <MapPin size={14} />
                       {destination.country}
                     </span>
 
                     <div className='destination-actions'>
-
                       <Link
                         to={`/destinations/${destination.id}`}
                         className='destination-action view'
@@ -333,21 +347,13 @@ function Destinations () {
                       >
                         <Trash2 size={16} />
                       </button>
-
                     </div>
-
                   </div>
-
                 </div>
-
               </div>
-
             ))}
-
           </div>
-
         )}
-
       </div>
 
       <Modal
@@ -359,7 +365,6 @@ function Destinations () {
         confirmText='Delete Destination'
         cancelText='Keep Destination'
       />
-
     </div>
   )
 }
