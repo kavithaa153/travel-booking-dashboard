@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import Modal from "../components/common/Modal";
 import { useAppContext } from "../context/AppContext";
+import defaultBookings from "../data/bookings";
 import "./Bookings.css";
 
 function Bookings() {
@@ -24,6 +25,7 @@ function Bookings() {
 
   const [deleteBookingId, setDeleteBookingId] =
     useState(null);
+
   const [isDeleteModalOpen, setIsDeleteModalOpen] =
     useState(false);
 
@@ -31,13 +33,28 @@ function Bookings() {
 
   useEffect(() => {
     try {
-      const savedBookings =
-        JSON.parse(
-          localStorage.getItem("travelgo_bookings")
-        ) || [];
+      const savedBookings = JSON.parse(
+        localStorage.getItem("travelgo_bookings")
+      );
 
-      setBookings(savedBookings);
+      if (Array.isArray(savedBookings) && savedBookings.length > 0) {
+        setBookings(savedBookings);
+      } else {
+        localStorage.setItem(
+          "travelgo_bookings",
+          JSON.stringify(defaultBookings)
+        );
+
+        setBookings(defaultBookings);
+      }
     } catch (error) {
+      localStorage.setItem(
+        "travelgo_bookings",
+        JSON.stringify(defaultBookings)
+      );
+
+      setBookings(defaultBookings);
+
       showToast(
         "Unable to load bookings.",
         "error"
@@ -171,6 +188,24 @@ function Bookings() {
     );
   };
 
+  const totalBookings = bookings.length;
+
+  const confirmedBookings = bookings.filter(
+    (booking) =>
+      booking.bookingStatus === "Confirmed"
+  ).length;
+
+  const pendingBookings = bookings.filter(
+    (booking) =>
+      booking.bookingStatus === "Pending"
+  ).length;
+
+  const totalRevenue = bookings.reduce(
+    (total, booking) =>
+      total + Number(booking.totalAmount || 0),
+    0
+  );
+
   return (
     <div className="bookings-page">
       <div className="bookings-header">
@@ -190,6 +225,54 @@ function Bookings() {
           <Plus size={18} />
           Create Booking
         </Link>
+      </div>
+
+      <div className="bookings-stats">
+        <div className="booking-stat-card">
+          <div className="booking-stat-icon">
+            <CalendarDays size={20} />
+          </div>
+
+          <div>
+            <span>Total Bookings</span>
+            <strong>{totalBookings}</strong>
+          </div>
+        </div>
+
+        <div className="booking-stat-card">
+          <div className="booking-stat-icon confirmed">
+            <CalendarDays size={20} />
+          </div>
+
+          <div>
+            <span>Confirmed</span>
+            <strong>{confirmedBookings}</strong>
+          </div>
+        </div>
+
+        <div className="booking-stat-card">
+          <div className="booking-stat-icon pending">
+            <CalendarDays size={20} />
+          </div>
+
+          <div>
+            <span>Pending</span>
+            <strong>{pendingBookings}</strong>
+          </div>
+        </div>
+
+        <div className="booking-stat-card">
+          <div className="booking-stat-icon revenue">
+            <CreditCard size={20} />
+          </div>
+
+          <div>
+            <span>Total Revenue</span>
+            <strong>
+              ₹{totalRevenue.toLocaleString("en-IN")}
+            </strong>
+          </div>
+        </div>
       </div>
 
       <div className="bookings-toolbar">
@@ -216,15 +299,19 @@ function Bookings() {
             <option value="All">
               All Booking Status
             </option>
+
             <option value="Confirmed">
               Confirmed
             </option>
+
             <option value="Pending">
               Pending
             </option>
+
             <option value="Cancelled">
               Cancelled
             </option>
+
             <option value="Completed">
               Completed
             </option>
@@ -241,12 +328,19 @@ function Bookings() {
             <option value="All">
               All Payment Status
             </option>
+
             <option value="Paid">
               Paid
             </option>
+
             <option value="Pending">
               Pending
             </option>
+
+            <option value="Partial">
+              Partial
+            </option>
+
             <option value="Refunded">
               Refunded
             </option>
@@ -263,12 +357,15 @@ function Bookings() {
             <option value="newest">
               Newest First
             </option>
+
             <option value="oldest">
               Oldest First
             </option>
+
             <option value="amountHigh">
               Amount: High to Low
             </option>
+
             <option value="amountLow">
               Amount: Low to High
             </option>

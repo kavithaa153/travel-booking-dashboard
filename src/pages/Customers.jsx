@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import Modal from "../components/common/Modal";
 import { useAppContext } from "../context/AppContext";
+import defaultCustomers from "../data/customers";
 import "./Customers.css";
 
 function Customers() {
@@ -27,17 +28,29 @@ function Customers() {
 
   useEffect(() => {
     try {
-      const savedCustomers =
-        JSON.parse(
-          localStorage.getItem("travelgo_customers")
-        ) || [];
-
-      setCustomers(savedCustomers);
-    } catch (error) {
-      showToast(
-        "Unable to load customers.",
-        "error"
+      const savedCustomers = JSON.parse(
+        localStorage.getItem("travelgo_customers")
       );
+
+      if (Array.isArray(savedCustomers) && savedCustomers.length > 0) {
+        setCustomers(savedCustomers);
+      } else {
+        localStorage.setItem(
+          "travelgo_customers",
+          JSON.stringify(defaultCustomers)
+        );
+
+        setCustomers(defaultCustomers);
+      }
+    } catch (error) {
+      localStorage.setItem(
+        "travelgo_customers",
+        JSON.stringify(defaultCustomers)
+      );
+
+      setCustomers(defaultCustomers);
+
+      showToast("Unable to load customers.", "error");
     }
   }, [showToast]);
 
@@ -54,8 +67,7 @@ function Customers() {
   const handleDelete = () => {
     try {
       const updatedCustomers = customers.filter(
-        (customer) =>
-          customer.id !== deleteCustomerId
+        (customer) => customer.id !== deleteCustomerId
       );
 
       setCustomers(updatedCustomers);
@@ -67,15 +79,9 @@ function Customers() {
 
       closeDeleteModal();
 
-      showToast(
-        "Customer deleted successfully",
-        "success"
-      );
+      showToast("Customer deleted successfully", "success");
     } catch (error) {
-      showToast(
-        "Unable to delete customer.",
-        "error"
-      );
+      showToast("Unable to delete customer.", "error");
     }
   };
 
@@ -87,37 +93,24 @@ function Customers() {
 
       result = result.filter(
         (customer) =>
-          customer.name
-            ?.toLowerCase()
-            .includes(search) ||
-          customer.email
-            ?.toLowerCase()
-            .includes(search) ||
-          customer.phone
-            ?.toLowerCase()
-            .includes(search)
+          customer.name?.toLowerCase().includes(search) ||
+          customer.email?.toLowerCase().includes(search) ||
+          customer.phone?.toLowerCase().includes(search)
       );
     }
 
     if (statusFilter !== "All") {
       result = result.filter(
-        (customer) =>
-          customer.status === statusFilter
+        (customer) => customer.status === statusFilter
       );
     }
 
     if (sortOrder === "newest") {
-      result.sort(
-        (a, b) =>
-          Number(b.id) - Number(a.id)
-      );
+      result.sort((a, b) => Number(b.id) - Number(a.id));
     }
 
     if (sortOrder === "oldest") {
-      result.sort(
-        (a, b) =>
-          Number(a.id) - Number(b.id)
-      );
+      result.sort((a, b) => Number(a.id) - Number(b.id));
     }
 
     if (sortOrder === "nameAZ") {
@@ -157,6 +150,14 @@ function Customers() {
     ).toUpperCase();
   };
 
+  const activeCustomers = customers.filter(
+    (customer) => customer.status === "Active"
+  ).length;
+
+  const inactiveCustomers = customers.filter(
+    (customer) => customer.status === "Inactive"
+  ).length;
+
   return (
     <div className="customers-page">
       <div className="customers-header">
@@ -176,6 +177,41 @@ function Customers() {
           <Plus size={18} />
           Add Customer
         </Link>
+      </div>
+
+      <div className="customers-stats">
+        <div className="customer-stat-card">
+          <div className="customer-stat-icon">
+            <UserRound size={20} />
+          </div>
+
+          <div>
+            <span>Total Customers</span>
+            <strong>{customers.length}</strong>
+          </div>
+        </div>
+
+        <div className="customer-stat-card">
+          <div className="customer-stat-icon active">
+            <UserRound size={20} />
+          </div>
+
+          <div>
+            <span>Active Customers</span>
+            <strong>{activeCustomers}</strong>
+          </div>
+        </div>
+
+        <div className="customer-stat-card">
+          <div className="customer-stat-icon inactive">
+            <UserRound size={20} />
+          </div>
+
+          <div>
+            <span>Inactive Customers</span>
+            <strong>{inactiveCustomers}</strong>
+          </div>
+        </div>
       </div>
 
       <div className="customers-toolbar">
@@ -328,6 +364,7 @@ function Customers() {
                         <div className="customer-contact">
                           <div>
                             <Mail size={14} />
+
                             <span>
                               {customer.email}
                             </span>
@@ -335,6 +372,7 @@ function Customers() {
 
                           <div>
                             <Phone size={14} />
+
                             <span>
                               {customer.phone}
                             </span>

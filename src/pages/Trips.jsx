@@ -14,6 +14,7 @@ import {
   X
 } from "lucide-react";
 import { useAppContext } from "../context/AppContext";
+import defaultTrips from "../data/trips";
 import "./Trips.css";
 
 function Trips() {
@@ -33,13 +34,47 @@ function Trips() {
   useEffect(() => {
     const loadTrips = () => {
       try {
-        const savedTrips =
-          JSON.parse(localStorage.getItem("travelgo_trips")) || [];
+        const savedTrips = JSON.parse(
+          localStorage.getItem("travelgo_trips")
+        );
 
-        setTrips(Array.isArray(savedTrips) ? savedTrips : []);
+        if (Array.isArray(savedTrips) && savedTrips.length > 0) {
+          setTrips(savedTrips);
+          return;
+        }
+
+        const normalizedTrips = defaultTrips.map((trip) => ({
+          ...trip,
+          title: trip.title || trip.name,
+          destination: trip.destination || trip.country || "",
+          price: Number(trip.price || 0),
+          seats: Number(trip.seats || trip.availableSeats || 0),
+          status: trip.status || "Upcoming"
+        }));
+
+        localStorage.setItem(
+          "travelgo_trips",
+          JSON.stringify(normalizedTrips)
+        );
+
+        setTrips(normalizedTrips);
       } catch {
-        setTrips([]);
-        showToast("Unable to load trips.", "error");
+        const normalizedTrips = defaultTrips.map((trip) => ({
+          ...trip,
+          title: trip.title || trip.name,
+          destination: trip.destination || trip.country || "",
+          price: Number(trip.price || 0),
+          seats: Number(trip.seats || trip.availableSeats || 0),
+          status: trip.status || "Upcoming"
+        }));
+
+        localStorage.setItem(
+          "travelgo_trips",
+          JSON.stringify(normalizedTrips)
+        );
+
+        setTrips(normalizedTrips);
+        showToast("Default trips loaded.", "success");
       }
     };
 
@@ -88,7 +123,10 @@ function Trips() {
     const normalizedSearch = searchTerm.trim().toLowerCase();
 
     const result = trips.filter((trip) => {
-      const title = String(trip.title || "").toLowerCase();
+      const title = String(
+        trip.title || trip.name || ""
+      ).toLowerCase();
+
       const destination = String(
         trip.destination || ""
       ).toLowerCase();
@@ -239,9 +277,15 @@ function Trips() {
         Math.min(previousPage, newTotalPages)
       );
 
-      showToast("Trip deleted successfully", "success");
+      showToast(
+        "Trip deleted successfully",
+        "success"
+      );
     } catch {
-      showToast("Unable to delete trip.", "error");
+      showToast(
+        "Unable to delete trip.",
+        "error"
+      );
     }
   };
 
@@ -365,10 +409,21 @@ function Trips() {
             onChange={handleStatusChange}
             aria-label="Filter by status"
           >
-            <option value="All">All Status</option>
-            <option value="Upcoming">Upcoming</option>
-            <option value="Active">Active</option>
-            <option value="Completed">Completed</option>
+            <option value="All">
+              All Status
+            </option>
+
+            <option value="Upcoming">
+              Upcoming
+            </option>
+
+            <option value="Active">
+              Active
+            </option>
+
+            <option value="Completed">
+              Completed
+            </option>
           </select>
         </div>
 
@@ -392,12 +447,15 @@ function Trips() {
             <option value="newest">
               Newest First
             </option>
+
             <option value="oldest">
               Oldest First
             </option>
+
             <option value="priceHigh">
               Price: High to Low
             </option>
+
             <option value="priceLow">
               Price: Low to High
             </option>
@@ -487,7 +545,9 @@ function Trips() {
                           </div>
 
                           <div>
-                            <strong>{trip.title}</strong>
+                            <strong>
+                              {trip.title || trip.name}
+                            </strong>
 
                             <span>
                               <MapPin size={13} />
@@ -503,12 +563,16 @@ function Trips() {
 
                           <div>
                             <strong>
-                              {formatDate(trip.startDate)}
+                              {formatDate(
+                                trip.startDate
+                              )}
                             </strong>
 
                             <span>
                               to{" "}
-                              {formatDate(trip.endDate)}
+                              {formatDate(
+                                trip.endDate
+                              )}
                             </span>
                           </div>
                         </div>
@@ -549,7 +613,10 @@ function Trips() {
                                 `/trips/${trip.id}`
                               )
                             }
-                            aria-label={`View ${trip.title}`}
+                            aria-label={`View ${
+                              trip.title ||
+                              trip.name
+                            }`}
                           >
                             <Eye size={17} />
                           </button>
@@ -562,7 +629,10 @@ function Trips() {
                                 `/trips/${trip.id}/edit`
                               )
                             }
-                            aria-label={`Edit ${trip.title}`}
+                            aria-label={`Edit ${
+                              trip.title ||
+                              trip.name
+                            }`}
                           >
                             <Pencil size={17} />
                           </button>
@@ -573,7 +643,10 @@ function Trips() {
                             onClick={() =>
                               setDeleteTrip(trip)
                             }
-                            aria-label={`Delete ${trip.title}`}
+                            aria-label={`Delete ${
+                              trip.title ||
+                              trip.name
+                            }`}
                           >
                             <Trash2 size={17} />
                           </button>
@@ -602,7 +675,10 @@ function Trips() {
                     disabled={safeCurrentPage === 1}
                     onClick={() =>
                       setCurrentPage((previous) =>
-                        Math.max(1, previous - 1)
+                        Math.max(
+                          1,
+                          previous - 1
+                        )
                       )
                     }
                     aria-label="Previous page"
@@ -674,7 +750,11 @@ function Trips() {
 
             <p>
               Are you sure you want to delete{" "}
-              <strong>{deleteTrip.title}</strong>?
+              <strong>
+                {deleteTrip.title ||
+                  deleteTrip.name}
+              </strong>
+              ?
               This action cannot be undone.
             </p>
 
