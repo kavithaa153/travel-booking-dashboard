@@ -1,5 +1,6 @@
 import { Sparkles } from 'lucide-react'
 import travelVideo from '../../assets/videos/travel-hero.mp4'
+import travelPoster from '../../assets/hero.png'
 
 import './Hero.css'
 
@@ -13,7 +14,8 @@ function Hero () {
         muted
         loop
         playsInline
-        preload='auto'
+        preload='metadata'
+        poster={travelPoster}
       >
         <source src={travelVideo} type='video/mp4' />
         Your browser does not support the video tag.
@@ -43,19 +45,15 @@ function Hero () {
         </div>
 
         <div className='hero-floating-card'>
-
           <span className='hero-floating-label'>
             YOUR NEXT ADVENTURE
           </span>
 
-          <strong>
-            Explore the world
-          </strong>
+          <strong>Explore the world</strong>
 
           <span className='hero-floating-text'>
             Curated journeys. Unforgettable memories.
           </span>
-
         </div>
 
       </div>
