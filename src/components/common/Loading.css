@@ -1,0 +1,26 @@
+.common-loading {
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.common-loading-spinner {
+  color: var(--primary);
+  animation: commonLoadingSpin 0.9s linear infinite;
+}
+
+@keyframes commonLoadingSpin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}

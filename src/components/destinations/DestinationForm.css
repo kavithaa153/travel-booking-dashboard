@@ -1,0 +1,352 @@
+.destination-form-page {
+  padding: 32px;
+  min-height: calc(100vh - var(--navbar-height));
+  background: var(--background);
+}
+
+.destination-form-header {
+  max-width: 1000px;
+  margin: 0 auto 24px;
+}
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.back-button:hover {
+  color: var(--primary);
+  transform: translateX(-2px);
+}
+
+.destination-form-header h1 {
+  margin-bottom: 6px;
+  color: var(--text-primary);
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.destination-form-header p {
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.destination-form-card {
+  max-width: 1000px;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.form-section {
+  padding: 28px;
+}
+
+.form-section-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-bottom: 24px;
+  margin-bottom: 26px;
+  border-bottom: 1px solid var(--border);
+}
+
+.form-section-icon {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+.form-section-title h2 {
+  margin-bottom: 3px;
+  color: var(--text-primary);
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.form-section-title p {
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.form-group label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.form-group label > span:not(.optional) {
+  color: var(--danger);
+}
+
+.form-group label .optional {
+  margin-left: 4px;
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  outline: none;
+  background: var(--surface);
+  color: var(--text-primary);
+  font-size: 14px;
+  transition: var(--transition-fast);
+}
+
+.form-group input,
+.form-group select {
+  height: 46px;
+  padding: 0 14px;
+}
+
+.form-group textarea {
+  min-height: 120px;
+  padding: 13px 14px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: var(--text-muted);
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.form-group input.input-error,
+.form-group textarea.input-error {
+  border-color: var(--danger);
+}
+
+.form-group input.input-error:focus,
+.form-group textarea.input-error:focus {
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.08);
+}
+
+.error-message {
+  margin-top: 6px;
+  color: var(--danger);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.image-preview-section {
+  padding: 0 28px 28px;
+}
+
+.image-preview-section h3 {
+  margin-bottom: 12px;
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.image-preview-section img {
+  display: block;
+  width: 100%;
+  max-width: 420px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 20px 28px;
+  border-top: 1px solid var(--border);
+  background: var(--surface-soft);
+}
+
+.cancel-button,
+.save-destination-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 18px;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.cancel-button {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-secondary);
+}
+
+.cancel-button:hover {
+  border-color: #cbd5e1;
+  background: #f8fafc;
+  color: var(--text-primary);
+}
+
+.save-destination-button {
+  border: 1px solid var(--primary);
+  background: var(--primary);
+  color: #ffffff;
+}
+
+.save-destination-button:hover {
+  background: var(--primary-dark);
+  border-color: var(--primary-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.destination-not-found {
+  max-width: 500px;
+  margin: 80px auto;
+  padding: 40px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.destination-not-found h2 {
+  margin-bottom: 8px;
+  color: var(--text-primary);
+  font-size: 22px;
+}
+
+.destination-not-found p {
+  margin-bottom: 22px;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.destination-not-found button {
+  min-height: 42px;
+  padding: 0 18px;
+  border: none;
+  border-radius: 9px;
+  background: var(--primary);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.destination-not-found button:hover {
+  background: var(--primary-dark);
+}
+
+@media (max-width: 768px) {
+  .destination-form-page {
+    padding: 22px 16px;
+  }
+
+  .destination-form-header h1 {
+    font-size: 24px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .form-group.full-width {
+    grid-column: auto;
+  }
+
+  .form-section {
+    padding: 22px;
+  }
+
+  .image-preview-section {
+    padding: 0 22px 22px;
+  }
+
+  .form-actions {
+    padding: 18px 22px;
+  }
+}
+
+@media (max-width: 520px) {
+  .destination-form-page {
+    padding: 16px 12px;
+  }
+
+  .form-section {
+    padding: 18px;
+  }
+
+  .form-section-title {
+    align-items: flex-start;
+  }
+
+  .image-preview-section {
+    padding: 0 18px 18px;
+  }
+
+  .image-preview-section img {
+    height: 180px;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+    padding: 16px 18px;
+  }
+
+  .cancel-button,
+  .save-destination-button {
+    width: 100%;
+  }
+}

@@ -1,0 +1,263 @@
+.travel-hero {
+  position: relative;
+  width: 100%;
+  min-height: 540px;
+  overflow: hidden;
+  border-radius: 24px;
+  background: #17191b;
+  box-shadow: var(--shadow-md);
+  isolation: isolate;
+}
+
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+  opacity: 1;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255, 252, 244, 0.92) 0%,
+      rgba(255, 252, 244, 0.78) 18%,
+      rgba(255, 252, 244, 0.48) 34%,
+      rgba(255, 252, 244, 0.18) 50%,
+      rgba(255, 252, 244, 0.04) 70%,
+      rgba(255, 252, 244, 0) 100%
+    );
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  min-height: 540px;
+  padding: 60px 48px;
+  display: flex;
+  align-items: center;
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 3;
+  width: 55%;
+  max-width: 590px;
+}
+
+.hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+  color: #987016;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+}
+
+.hero-eyebrow svg {
+  color: #c9972b;
+  flex-shrink: 0;
+}
+
+.hero-content h1 {
+  margin: 0;
+  max-width: 570px;
+  color: #151719;
+  font-size: clamp(48px, 5vw, 74px);
+  line-height: 0.98;
+  letter-spacing: -3px;
+  font-weight: 850;
+}
+
+.hero-content h1 span {
+  display: block;
+  color: #c9972b;
+}
+
+.hero-content p {
+  max-width: 500px;
+  margin: 25px 0 0;
+  color: #414750;
+  font-size: 16px;
+  line-height: 1.65;
+  font-weight: 500;
+}
+
+.hero-floating-card {
+  position: absolute;
+  right: 42px;
+  bottom: 42px;
+  z-index: 4;
+  width: 255px;
+  padding: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 16px;
+  background: rgba(23, 25, 27, 0.94);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.25);
+  color: #ffffff;
+  backdrop-filter: blur(8px);
+}
+
+.hero-floating-label {
+  display: block;
+  margin-bottom: 8px;
+  color: #c9972b;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+}
+
+.hero-floating-card strong {
+  display: block;
+  margin-bottom: 7px;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.hero-floating-text {
+  display: block;
+  color: #c5c8cc;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+@media (max-width: 1100px) {
+  .hero-copy {
+    width: 60%;
+  }
+
+  .hero-content h1 {
+    font-size: clamp(44px, 5vw, 64px);
+  }
+
+  .hero-floating-card {
+    right: 28px;
+    bottom: 28px;
+  }
+}
+
+@media (max-width: 900px) {
+  .travel-hero {
+    min-height: 560px;
+  }
+
+  .hero-content {
+    min-height: 560px;
+    padding: 50px 32px;
+  }
+
+  .hero-copy {
+    width: 65%;
+  }
+
+  .hero-overlay {
+    background:
+      linear-gradient(
+        90deg,
+        rgba(255, 252, 244, 0.94) 0%,
+        rgba(255, 252, 244, 0.78) 25%,
+        rgba(255, 252, 244, 0.35) 48%,
+        rgba(255, 252, 244, 0.06) 75%,
+        rgba(255, 252, 244, 0) 100%
+      );
+  }
+}
+
+@media (max-width: 760px) {
+  .travel-hero {
+    min-height: 620px;
+    border-radius: 18px;
+  }
+
+  .hero-video {
+    object-position: center;
+  }
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255, 252, 244, 0.60) 0%,
+      rgba(255, 252, 244, 0.42) 18%,
+      rgba(255, 252, 244, 0.20) 35%,
+      rgba(255, 252, 244, 0.06) 52%,
+      rgba(255, 252, 244, 0) 72%
+    );
+}
+
+  .hero-content {
+    min-height: 620px;
+    padding: 65px 28px 30px;
+    display: block;
+  }
+
+  .hero-copy {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .hero-eyebrow {
+    margin-bottom: 15px;
+    font-size: 10px;
+  }
+
+  .hero-content h1 {
+    max-width: 100%;
+    font-size: clamp(42px, 10vw, 58px);
+    line-height: 1;
+    letter-spacing: -2px;
+  }
+
+  .hero-content p {
+    max-width: 100%;
+    margin-top: 20px;
+    font-size: 14px;
+  }
+
+  .hero-floating-card {
+    left: 28px;
+    right: 28px;
+    bottom: 25px;
+    width: auto;
+    padding: 18px;
+  }
+}
+
+@media (max-width: 500px) {
+  .travel-hero {
+    min-height: 650px;
+  }
+
+  .hero-content {
+    min-height: 650px;
+    padding: 50px 22px 25px;
+  }
+
+  .hero-content h1 {
+    font-size: 42px;
+  }
+
+  .hero-floating-card {
+    left: 22px;
+    right: 22px;
+    bottom: 20px;
+  }
+}

@@ -1,0 +1,192 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  color: var(--text-primary);
+  background:
+    radial-gradient(
+      circle at 90% 0%,
+      rgba(37, 99, 235, 0.09),
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 0% 100%,
+      rgba(14, 165, 233, 0.05),
+      transparent 25%
+    ),
+    var(--background);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+button {
+  border: 0;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-top: 0;
+}
+
+input,
+select,
+textarea {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--border);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+input:hover,
+select:hover,
+textarea:hover {
+  border-color: #c7d5e6;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.09);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.page-title,
+.destinations-header h1,
+.trips-header h1,
+.customers-header h1,
+.bookings-header h1,
+.calendar-header h1,
+.analytics-header h1 {
+  color: var(--text-primary);
+  font-weight: 800;
+  letter-spacing: -0.6px;
+}
+
+.page-subtitle,
+.destinations-header p,
+.trips-header p,
+.customers-header p,
+.bookings-header p,
+.calendar-header p,
+.analytics-header p {
+  color: var(--text-secondary);
+}
+
+.stat-card,
+.destinations-card,
+.destination-card,
+.table-card,
+.booking-card,
+.analytics-card {
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.stat-card:hover,
+.destination-card:hover,
+.analytics-card:hover {
+  transform: translateY(-3px);
+  border-color: #cbdcf0;
+  box-shadow: var(--shadow-md);
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+::selection {
+  background: var(--primary-light);
+  color: var(--primary-dark);
+}
+
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  input,
+  select,
+  textarea {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  button {
+    min-height: 40px;
+  }
+}
