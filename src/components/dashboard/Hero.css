@@ -187,21 +187,16 @@
     object-position: center;
   }
 
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background:
-    linear-gradient(
-      90deg,
-      rgba(255, 252, 244, 0.60) 0%,
-      rgba(255, 252, 244, 0.42) 18%,
-      rgba(255, 252, 244, 0.20) 35%,
-      rgba(255, 252, 244, 0.06) 52%,
-      rgba(255, 252, 244, 0) 72%
-    );
-}
+  .hero-overlay {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(255, 252, 244, 0.94) 0%,
+        rgba(255, 252, 244, 0.82) 38%,
+        rgba(255, 252, 244, 0.38) 68%,
+        rgba(255, 252, 244, 0.08) 100%
+      );
+  }
 
   .hero-content {
     min-height: 620px;
